@@ -26,6 +26,8 @@ The overall workflow consists of four main phases: (1) Grid-based Spatio-Tempora
 
 ## 📂 Repository Structure
 
+```text
+.
 ├── data/                  # Sample grid metadata & topology definitions
 │   ├── edge_index.npy     # 2x15327 edge list matrix
 │   ├── edge_weight.npy    # 8308x8308 adjacency weights
