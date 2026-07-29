@@ -28,24 +28,19 @@ The overall workflow consists of four main phases: (1) Grid-based Spatio-Tempora
 
 ```text
 .
-├── data/                  # Sample grid metadata & topology definitions
-│   ├── edge_index.npy     # 2x15327 edge list matrix
-│   ├── edge_weight.npy    # 8308x8308 adjacency weights
-│   └── grid_metadata.json # 8,308 road cell spatial coordinates
-├── preprocessing/         # Image processing & graph building pipeline
-│   ├── image_to_grid.py   # GDOT color-coding & distanceTime (kmHour) conversion
-│   ├── match_template.py  # OpenCV template matching for accidents & construction
-│   ├── rainfall_parser.py # SSEC Hydro Estimator resampling
-│   └── build_network.py   # OSM road filtering & spatial join script
-├── models/                # PyTorch Geometric model definitions
-│   ├── stgcn.py           # Spatio-Temporal Graph Convolutional Network
-│   ├── tgcn.py            # Temporal Graph Convolutional Network (GCN/ChebNet + GRU)
-│   └── gc_lstm.py         # Graph Convolution embedded LSTM
-├── utils/                 # Evaluation and spatial statistics
-│   ├── sliding_window.py  # Input/target tensor creation
-│   ├── metrics.py         # MAE, RMSE calculations
-│   └── kde_analysis.py    # Spatial accuracy hotspot generator
-├── train.py               # Model training script with Optuna hyperparameter tuning
-├── evaluate.py            # Benchmark evaluation & visualization
-├── requirements.txt       # Dependencies
-└── README.md              # Documentation
+├── models/
+│   ├── optuna_GC-LSTM.py          # GC-LSTM model training & Optuna hyperparameter tuning
+│   ├── optuna_STGCN.py            # STGCN model training & Optuna hyperparameter tuning
+│   ├── optuna_TGCN-C.py           # TGCN-ChebNet model training & Optuna hyperparameter tuning
+│   └── optuna_TGCN-G.py           # TGCN (Standard GCN) model training & Optuna hyperparameter tuning
+├── preprocessing/
+│   ├── build_connectivity.py      # Spatial grid network creation
+│   ├── congestion_to_KmH.py       # Normalization & metric conversion to kmHour
+│   ├── create_feature_target.py   # Sliding window processing for feature/target input tensors
+│   ├── degrade_congestion_sum.py  # 5x5 max-kernel resampling & cumulative spatial aggregation
+│   └── degrade_crop_congestion.py # Spatial cropping to Atlanta study area extent
+├── sample_data/
+│   ├── congestion_20241101_0000.png  # Sample 10-min traffic congestion map image
+│   ├── crash_20241101_0000.png       # Sample traffic incident & construction symbol map image
+│   └── precipitation_20241101_0000.png # Sample SSEC rainfall map image
+└── README.md                          # Project documentation
